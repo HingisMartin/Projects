@@ -1,0 +1,106 @@
+Here’s a clean and professional **README** for your Reader-Writer problem project:
+
+---
+
+# Reader-Writer Problem Simulation
+
+## Overview
+
+This project simulates the classical **Reader-Writer problem** using C++ with **Process**, **Queue**, and **Semaphore** classes. It demonstrates synchronization between multiple readers and writers accessing a shared resource.
+
+* Multiple readers can read simultaneously.
+* Writers require exclusive access.
+* A simple **reader-preference solution** is implemented.
+
+---
+
+## Features
+
+* **Process Class**: Represents a process with attributes like PID, type, arrival time, burst time, and state.
+* **Queue Class**: Handles a queue of processes for blocking/waiting management.
+* **Semaphore Class**: Implements counting semaphore to control access and manage blocked processes.
+* **ReaderWriter Class**: Manages the reader-writer logic with proper synchronization.
+* **Simulation with Threads**: Each reader/writer process runs in a separate thread to mimic concurrent execution.
+
+---
+
+## How It Works
+
+1. **Readers**:
+
+   * Acquire a `mutex` to increment `read_count`.
+   * If it’s the first reader, lock `rw` to block writers.
+   * Release `mutex`.
+   * Read (simulated via `start()` and `finish()`).
+   * Decrement `read_count`; if it’s the last reader, release `rw`.
+
+2. **Writers**:
+
+   * Acquire `rw` for exclusive access.
+   * Write (simulated via `start()` and `finish()`).
+   * Release `rw`.
+
+---
+
+## Directory Structure
+
+```
+ReaderWriterProject/
+│
+├─ Process.h
+├─ Process.cpp
+├─ Queue.h
+├─ Queue.cpp
+├─ Semaphore.h
+├─ Semaphore.cpp
+├─ ReaderPriority.h
+├─ ReaderPriority.cpp
+└─ main.cpp
+```
+
+---
+
+## How to Run
+
+1. Clone the repository:
+
+```bash
+git clone <your-repo-URL>
+cd ReaderWriterProject
+```
+
+2. Compile the project:
+
+```bash
+g++ main.cpp Process.cpp Queue.cpp Semaphore.cpp ReaderWriter.cpp -o reader_writer -pthread
+```
+
+3. Run the simulation:
+
+```bash
+./reader_writer
+```
+
+---
+
+## Example Output
+
+```
+Reader 1 is reading...
+PID: 1 Arrival: 0 Start: 0 Finish: 1 State: Ready
+Reader 2 is reading...
+PID: 2 Arrival: 0 Start: 0 Finish: 1 State: Ready
+Writer 3 is writing...
+PID: 3 Arrival: 0 Start: 0 Finish: 1 State: Ready
+...
+```
+
+---
+
+## Notes
+
+* Uses **threading** to simulate concurrent execution.
+* Can be extended to implement **writer-preference** or **fair scheduling**.
+* The current implementation demonstrates **reader-preference**, allowing multiple readers to access the resource concurrently while writers wait.
+
+---
